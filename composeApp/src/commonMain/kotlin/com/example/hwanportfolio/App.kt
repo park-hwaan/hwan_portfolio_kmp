@@ -45,6 +45,7 @@ fun App() {
             item { Spacer(modifier = Modifier.height(40.dp)) }
             item { AboutTitleSection() }
             item { Spacer(modifier = Modifier.height(24.dp)) }
+            item { ProjectSection() }
         }
     }
 
@@ -145,13 +146,13 @@ fun AboutItem(title: String, value: String, modifier: Modifier = Modifier) {
     ) {
 
         Row(
-            modifier = Modifier.width(250.dp), // 글자 길이에 맞춰 180~220dp 사이로 조절하세요.
+            modifier = Modifier.width(250.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
             Box(
                 modifier = Modifier
-                    .size(36.dp)
+                    .size(40.dp)
                     .background(Color.LightGray, shape = androidx.compose.foundation.shape.CircleShape)
             )
 
@@ -160,14 +161,14 @@ fun AboutItem(title: String, value: String, modifier: Modifier = Modifier) {
             Column {
                 Text(
                     text = title,
-                    fontSize = 16.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
                     fontFamily = FontFamily
                 )
                 Text(
                     text = value,
-                    fontSize = 15.sp,
+                    fontSize = 17.sp,
                     color = Color.DarkGray,
                     fontFamily = FontFamily,
                     fontWeight = FontWeight.Medium,
