@@ -18,6 +18,10 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -82,6 +86,14 @@ fun ProjectSection() {
 @Composable
 fun ProjectCard(project: ProjectDataClass) {
     val uriHandler = LocalUriHandler.current
+    var showDialog by remember { mutableStateOf(false) }
+
+    if (showDialog) {
+        ReadMeDialog(
+            project = project,
+            onDismiss = { showDialog = false }
+        )
+    }
 
     Surface(
         modifier = Modifier
@@ -132,7 +144,7 @@ fun ProjectCard(project: ProjectDataClass) {
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(
-                text = "Key Roles",
+                text = "담당기능",
                 fontSize = 15.sp,
                 color = Color.Black,
                 fontWeight = FontWeight.Bold
@@ -141,7 +153,7 @@ fun ProjectCard(project: ProjectDataClass) {
             Spacer(modifier = Modifier.height(12.dp))
 
             // 담당 기능 리스트 간격 조정
-            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 project.content.forEach { list ->
                     ProjectBulletPoint(list)
                 }
@@ -149,7 +161,7 @@ fun ProjectCard(project: ProjectDataClass) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // 스토어 링크 (버튼 느낌으로 수정 가능하지만 일단 유지)
+            // 스토어 링크
             ClickableText(
                 text = AnnotatedString("View on PlayStore"),
                 style = TextStyle(
@@ -163,7 +175,6 @@ fun ProjectCard(project: ProjectDataClass) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // 기술 스택 (Used Skills)
             Text(
                 text = "Tech Stack",
                 fontSize = 13.sp,
@@ -172,7 +183,7 @@ fun ProjectCard(project: ProjectDataClass) {
                 modifier = Modifier.padding(bottom = 8.dp)
             )
 
-            // 기술 스택은 콤마로 구분된 텍스트라면 칩 형태로 보여주면 좋습니다.
+            //기술 스택
             Surface(
                 color = Color(0xFFF8F9FA),
                 shape = RoundedCornerShape(8.dp),
@@ -185,6 +196,25 @@ fun ProjectCard(project: ProjectDataClass) {
                     fontSize = 13.sp,
                     fontFamily = FontFamily,
                     fontWeight = FontWeight.Medium
+                )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Surface(
+                color = Color.White,
+                shape = RoundedCornerShape(4.dp),
+                border = BorderStroke(1.dp, color = Color.Black),
+                onClick = {
+                    showDialog = true
+                }
+            ) {
+                Text(
+                    text = "ReadMe",
+                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
+                    color = Color.Black,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
