@@ -132,6 +132,7 @@ fun ProjectCard(project: ProjectDataClass) {
                 color = Color(0xFF222222)
             )
 
+            //개발 기간
             Text(
                 text = project.date,
                 fontSize = 14.sp,
@@ -228,8 +229,10 @@ fun ProjectBulletPoint(text: String) {
         Text(
             text = text,
             fontSize = 14.sp,
+            fontFamily = FontFamily,
+            fontWeight = FontWeight.Medium,
             color = Color(0xFF444444),
-            lineHeight = 20.sp
+            lineHeight = 10.sp
         )
     }
 }
