@@ -1,5 +1,6 @@
 package com.example.hwanportfolio
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -40,17 +41,35 @@ fun AppPreview() {
 @Composable
 fun ProjectSection() {
     Column(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 60.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 80.dp, horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // 타이틀 강조 및 하단 선 추가
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                "PROJECTS",
+                fontSize = 48.sp,
+                fontWeight = FontWeight.ExtraBold,
+                letterSpacing = 2.sp
+            )
+            Box(
+                modifier = Modifier
+                    .padding(top = 8.dp)
+                    .width(250.dp)
+                    .height(4.dp)
+                    .background(Color(0xFFE91E63))
+            )
+        }
 
-        Text("PROJECTS", fontSize = 60.sp, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(60.dp))
 
-        Spacer(modifier = Modifier.height(40.dp))
-
+        // FlowRow 간격(Gap) 추가
         FlowRow(
             modifier = Modifier.widthIn(max = 1200.dp).fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterHorizontally),
+            verticalArrangement = Arrangement.spacedBy(24.dp),
             maxItemsInEachRow = 3
         ) {
             ProjectCard(ProjectDataClass.BOOMBIM)
@@ -66,75 +85,121 @@ fun ProjectCard(project: ProjectDataClass) {
 
     Surface(
         modifier = Modifier
-            .padding(16.dp)
-            .width(450.dp),
-        shape = RoundedCornerShape(16.dp),
-        shadowElevation = 8.dp,
-        color = Color.White
+            .widthIn(min = 400.dp, max = 550.dp),
+        shape = RoundedCornerShape(20.dp),
+        shadowElevation = 4.dp,
+        color = Color.White,
+        border = BorderStroke(1.dp, Color(0xFFF0F0F0))
     ) {
         Column(
-            modifier = Modifier.padding(24.dp),
+            modifier = Modifier.padding(32.dp),
             horizontalAlignment = Alignment.Start
         ) {
             Surface(
-                color = Color(0xFFDA54E8),
+                color = Color(0xFFE91E63).copy(alpha = 0.1f),
                 shape = RoundedCornerShape(4.dp)
             ) {
                 Text(
                     text = project.title,
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                    color = Color.White,
-                    fontSize = 14.sp,
+                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
+                    color = Color(0xFFE91E63),
+                    fontSize = 13.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
 
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-            Text(text = project.date, fontSize = 14.sp, color = Color.Gray)
-
-            Spacer(modifier = Modifier.height(12.dp))
-            Box(modifier = Modifier.fillMaxWidth().height(1.dp).background(Color(0xFFEEEEEE)))
-            Spacer(modifier = Modifier.height(12.dp))
-
+            // 메인 설명 (폰트 크기 조절)
             Text(
                 text = project.description,
-                fontSize = 18.sp,
+                fontSize = 22.sp,
                 fontFamily = FontFamily,
-                fontWeight = FontWeight.Bold,
-                lineHeight = 24.sp
+                fontWeight = FontWeight.ExtraBold,
+                lineHeight = 30.sp,
+                color = Color(0xFF222222)
+            )
+
+            Text(
+                text = project.date,
+                fontSize = 14.sp,
+                color = Color.Gray,
+                modifier = Modifier.padding(top = 4.dp)
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+            Box(modifier = Modifier.fillMaxWidth().height(1.dp).background(Color(0xFFF5F5F5)))
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(
+                text = "Key Roles",
+                fontSize = 15.sp,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold
             )
 
             Spacer(modifier = Modifier.height(12.dp))
 
-           project.content.forEach { list->
-               ProjectBulletPoint(list)
-           }
+            // 담당 기능 리스트 간격 조정
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                project.content.forEach { list ->
+                    ProjectBulletPoint(list)
+                }
+            }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
+            // 스토어 링크 (버튼 느낌으로 수정 가능하지만 일단 유지)
             ClickableText(
-                text = AnnotatedString(project.storeUrl),
+                text = AnnotatedString("View on PlayStore"),
                 style = TextStyle(
-                    fontSize = 12.sp,
-                    fontFamily = FontFamily,
-                    fontWeight = FontWeight.Bold,
-                    lineHeight = 24.sp,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
                     color = Color(0xFF1E88E5),
                     textDecoration = TextDecoration.Underline
                 ),
-                onClick = {
-                    uriHandler.openUri(project.storeUrl)
-                }
+                onClick = { uriHandler.openUri(project.storeUrl) }
             )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // 기술 스택 (Used Skills)
+            Text(
+                text = "Tech Stack",
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Gray,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            // 기술 스택은 콤마로 구분된 텍스트라면 칩 형태로 보여주면 좋습니다.
+            Surface(
+                color = Color(0xFFF8F9FA),
+                shape = RoundedCornerShape(8.dp),
+                border = BorderStroke(1.dp, Color(0xFFECEFF1))
+            ) {
+                Text(
+                    text = project.usedSkill,
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                    color = Color(0xFF455A64),
+                    fontSize = 13.sp,
+                    fontFamily = FontFamily,
+                    fontWeight = FontWeight.Medium
+                )
+            }
         }
     }
 }
 
 @Composable
 fun ProjectBulletPoint(text: String) {
-    Row{
-        Text("• ", fontWeight = FontWeight.Bold)
-        Text(text, fontSize = 14.sp, color = Color.DarkGray)
+    Row(verticalAlignment = Alignment.Top) {
+        Text("• ", color = Color(0xFFE91E63), fontWeight = FontWeight.Black)
+        Text(
+            text = text,
+            fontSize = 14.sp,
+            color = Color(0xFF444444),
+            lineHeight = 20.sp
+        )
     }
 }
