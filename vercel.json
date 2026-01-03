@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "JAVA_HOME": "/vercel/path0/.sdkman/candidates/java/17.0.10-tem"
+    }
+  }
+}
