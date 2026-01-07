@@ -29,6 +29,13 @@ data class ContentDetail(
     val featDetail: List<String>
 )
 
+data class TroubleShooting(
+    val title: String,
+    val problem: String,
+    val solution: String,
+    val effect: String
+)
+
 enum class ProjectDataClass(
     val title: String,
     val date: String,
@@ -39,6 +46,7 @@ enum class ProjectDataClass(
     val usedSkill: String,
     val githubLink: String,
     val contentDetail: List<ContentDetail>,
+    val troubleShooting: TroubleShooting,
     val screenShots: List<DrawableResource> = emptyList()
 ) {
     BOOMBIM(
@@ -47,6 +55,13 @@ enum class ProjectDataClass(
         description = "사용자에게 지도를 통해 혼잡도를 보여주는 앱",
         content = listOf("소셜로그인을 활용한 사용자 인증", "카카오맵 연동 및 마커,클러스터링 표시","FCM을 통한 알림 연동","마이페이지 및 Api 연결"),
         participants = "7인 프로젝트(PM 1, BackEnd 2, Designer 2, Aos 1, Ios 1)",
+        troubleShooting = TroubleShooting(
+            title = "다량의 마커 렌더링 성능 최적화",
+            problem = "지도 화면에서 서버로부터 다량의 장소 데이터를 불러온 뒤 마커를 생성해 표시할 때, 100개 이상의 마커가 한 번에 렌더링되며 성능 저하 및 로딩 지연이 발생함.",
+            solution = "1. 마커 클러스터링 적용: 가까운 좌표끼리 묶어 클러스터 마커로 표시하고, 줌 레벨에 따라 세부 장소 마커로 분리\n" +
+                    "2. 비트맵 캐싱: 동일한 혼잡도 아이콘을 매번 생성하지 않고 메모리에 캐싱 후 재사용",
+            effect = "LabelOptions 객체 재사용 및 불필요한 객체 생성을 최소화하여 메모리 사용을 효율화하고, 마커 생성 속도를 3초에서 1.5초로 개선"
+        ),
         githubLink = "https://github.com/swyp-app-team-4/boombim-android",
         screenShots = listOf(
             Res.drawable.image_boombim_1,
@@ -110,6 +125,9 @@ enum class ProjectDataClass(
         participants = "8인 프로젝트(BackEnd 2, Designer 2, Aos 2, Ios 2)",
         storeUrl = "https://play.google.com/store/apps/details?id=com.audiwhere.android&hl=ko",
         githubLink = "https://github.com/Team-Where/Where-Android",
+        troubleShooting = TroubleShooting(
+            "", "", "", ""
+        ),
         usedSkill = "MVVM, Retrofit, okhttp, Fcm, Flow, Coroutine, Room, Datastore, Glide, Hilt, Navigation",
         screenShots = listOf(Res.drawable.image_audi_1, Res.drawable.image_audi_2,Res.drawable.image_audi_3,Res.drawable.image_audi_4,Res.drawable.image_audi_5,Res.drawable.image_audi_6),
         contentDetail = listOf(
@@ -149,6 +167,9 @@ enum class ProjectDataClass(
     title = "스터디메이트(StudyMate)",
     date = "2024.04.01 ~ 2025.01.01",
     description = "멘토.멘티 매칭을 통한 학습 도움 플랫폼",
+        troubleShooting = TroubleShooting(
+            "", "", "", ""
+        ),
     content = listOf("게시판 기능", "SSE를 사용한 매칭 요청 알림","멘토 멘티간의 실시간 채팅 기능"),
         screenShots = listOf(Res.drawable.image_studymate_1, Res.drawable.image_studymate_2,Res.drawable.image_studymate_3,Res.drawable.image_studymate_4,Res.drawable.image_studymate_5),
         participants = "5인 프로젝트(BackEnd 2, Aos 1, FrontEnd 2)",

@@ -86,12 +86,17 @@ fun ProjectSection() {
 fun ProjectCard(project: ProjectDataClass) {
     val uriHandler = LocalUriHandler.current
     var showDialog by remember { mutableStateOf(false) }
+    var showTroubleDialog by remember { mutableStateOf(false) }
 
     if (showDialog) {
         ReadMeDialog(
             project = project,
             onDismiss = { showDialog = false }
         )
+    }
+
+    if (showTroubleDialog) {
+        TroubleShootingDialog(project = project, onDismiss = { showTroubleDialog = false })
     }
 
     Surface(
@@ -203,21 +208,40 @@ fun ProjectCard(project: ProjectDataClass) {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            Surface(
-                color = Color.White,
-                shape = RoundedCornerShape(4.dp),
-                border = BorderStroke(1.dp, color = Color.Black),
-                onClick = {
-                    showDialog = true
-                }
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp) // 간격 추가
             ) {
-                Text(
-                    text = "ReadMe",
-                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
-                    color = Color.Black,
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                Surface(
+                    color = Color.White,
+                    shape = RoundedCornerShape(4.dp),
+                    border = BorderStroke(1.dp, Color.Black),
+                    onClick = { showDialog = true }
+                ) {
+                    Text(
+                        text = "ReadMe",
+                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
+                        color = Color.Black,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
+                if (project.troubleShooting.title.isNotEmpty()) {
+                    Surface(
+                        color = Color.White,
+                        shape = RoundedCornerShape(4.dp),
+                        border = BorderStroke(1.dp, Color.Black),
+                        onClick = { showTroubleDialog = true }
+                    ) {
+                        Text(
+                            text = "Trouble Shooting",
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
+                            color = Color.Black, // ← 여기 White면 안 보임
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
             }
         }
     }

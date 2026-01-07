@@ -51,19 +51,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil3.compose.AsyncImage
-import coil3.compose.AsyncImagePainter
 import com.example.ContentDetail
 import com.example.FontFamily
 import com.example.ProjectDataClass
 import hwanportfolio.composeapp.generated.resources.Res
 import hwanportfolio.composeapp.generated.resources.icon_close
-import hwanportfolio.composeapp.generated.resources.image_audi_1
-import hwanportfolio.composeapp.generated.resources.image_audi_2
-import hwanportfolio.composeapp.generated.resources.image_audi_3
-import hwanportfolio.composeapp.generated.resources.image_audi_4
-import hwanportfolio.composeapp.generated.resources.image_audi_5
-import hwanportfolio.composeapp.generated.resources.image_audi_6
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import kotlin.text.chunked
@@ -281,17 +273,10 @@ fun ExecutionScreenSection(screenShots: List<DrawableResource>) {
                             shadowElevation = 8.dp,
                             color = Color.White
                         ) {
-                            AsyncImage(
-                                model = res,
+                            Image(
+                                painter = painterResource(res), // res는 DrawableResource
                                 contentDescription = null,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .graphicsLayer(alpha = alpha, scaleX = scale, scaleY = scale),
-                                onState = { state ->
-                                    if (state is AsyncImagePainter.State.Success) {
-                                        isLoaded = true
-                                    }
-                                },
+                                modifier = Modifier.fillMaxSize(),
                                 contentScale = ContentScale.Fit
                             )
                         }

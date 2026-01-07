@@ -30,10 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil3.compose.AsyncImage
-import coil3.compose.LocalPlatformContext
-import coil3.request.ImageRequest
-import coil3.request.crossfade
 import com.example.FontFamily
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -150,18 +146,13 @@ fun AboutTitleSection() {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            // 1. 증명 사진 영역
-            AsyncImage(
-                model = ImageRequest.Builder(LocalPlatformContext.current)
-                    .data(Res.drawable.image_profile)
-                    .crossfade(true)
-                    .build(),
+            Image(
+                painter = painterResource(Res.drawable.image_profile),
                 contentDescription = "Profile Image",
                 modifier = Modifier
                     .size(250.dp)
                     .clip(RoundedCornerShape(12.dp)),
-                contentScale = ContentScale.Crop,
-                alpha = 1f
+                contentScale = ContentScale.Fit
             )
 
             Spacer(modifier = Modifier.width(60.dp))

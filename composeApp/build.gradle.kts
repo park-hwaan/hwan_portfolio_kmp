@@ -58,8 +58,6 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(projects.shared)
-            implementation("io.coil-kt.coil3:coil-compose:3.0.0")
-            implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0") // 네트워크 이미지 로딩 시
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
