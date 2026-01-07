@@ -16,12 +16,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -39,6 +41,8 @@ import hwanportfolio.composeapp.generated.resources.icon_mail
 import hwanportfolio.composeapp.generated.resources.icon_person
 import hwanportfolio.composeapp.generated.resources.icon_phone_call
 import hwanportfolio.composeapp.generated.resources.icon_place
+import hwanportfolio.composeapp.generated.resources.image_computer_brown
+import hwanportfolio.composeapp.generated.resources.image_profile
 import hwanportfolio.composeapp.generated.resources.image_title_background
 import org.jetbrains.compose.resources.DrawableResource
 
@@ -77,7 +81,7 @@ fun TitleSection() {
             .height(400.dp)
     ) {
         Image(
-            painter = painterResource(Res.drawable.image_title_background),
+            painter = painterResource(Res.drawable.image_computer_brown),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -97,7 +101,8 @@ fun TitleSection() {
                 lineHeight = 52.sp,
                 textAlign = TextAlign.Center,
                 fontFamily = FontFamily,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.Bold,
+                color = Color.White
             )
 
             Spacer(modifier = Modifier.height(40.dp))
@@ -107,7 +112,8 @@ fun TitleSection() {
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center,
                 fontFamily = FontFamily,
-                fontWeight = FontWeight.Thin
+                fontWeight = FontWeight.Thin,
+                color = Color(0xFFFECECEC)
             )
         }
     }
@@ -130,25 +136,44 @@ fun AboutTitleSection() {
 
         Spacer(modifier = Modifier.height(8.dp))
         Box(modifier = Modifier.width(270.dp).height(2.dp).background(Color.LightGray))
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(60.dp))
 
-        Column(
+        Row(
             modifier = Modifier
-                .widthIn(max = 1000.dp)
+                .widthIn(max = 1100.dp)
                 .fillMaxWidth()
-                .padding(horizontal = 40.dp)
+                .padding(horizontal = 40.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
         ) {
-            Row(modifier = Modifier.fillMaxWidth()) {
-                AboutItem(Res.drawable.icon_person,"이름", "박환", Modifier.weight(1f))
-                AboutItem(Res.drawable.icon_calender,"생년월일", "00.11.29", Modifier.weight(1f))
-                AboutItem(Res.drawable.icon_place,"주소", "서울특별시 강동구", Modifier.weight(1f))
-            }
-            Spacer(modifier = Modifier.height(20.dp))
+            // 1. 증명 사진 영역
+            Image(
+                painter = painterResource(Res.drawable.image_profile),
+                contentDescription = "Profile Image",
+                modifier = Modifier
+                    .size(250.dp),
+                contentScale = ContentScale.Fit
+            )
 
-            Row(modifier = Modifier.fillMaxWidth()) {
-                AboutItem(Res.drawable.icon_phone_call,"연락처", "010-7557-5986", Modifier.weight(1f))
-                AboutItem(Res.drawable.icon_mail,"이메일", "pahw001129@naver.com", Modifier.weight(1f))
-                AboutItem(Res.drawable.icon_graduate,"학력", "한국공학대학교(컴퓨터공학부)", Modifier.weight(1f))
+            Spacer(modifier = Modifier.width(60.dp))
+
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    AboutItem(Res.drawable.icon_person, "이름", "박환", Modifier.weight(1f))
+                    AboutItem(Res.drawable.icon_calender, "생년월일", "00.11.29", Modifier.weight(1f))
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    AboutItem(Res.drawable.icon_place, "주소", "서울특별시 강동구", Modifier.weight(1f))
+                    AboutItem(Res.drawable.icon_phone_call, "연락처", "010-7557-5986", Modifier.weight(1f))
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    AboutItem(Res.drawable.icon_mail, "이메일", "pahw001129@naver.com", Modifier.weight(1f))
+                    AboutItem(Res.drawable.icon_graduate, "학력", "한국공학대학교\n(컴퓨터공학부)", Modifier.weight(1f))
+                }
             }
         }
     }

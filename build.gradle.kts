@@ -9,13 +9,3 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.ktor) apply false
 }
-
-subprojects {
-    plugins.withId("org.jetbrains.kotlin.multiplatform") {
-        extensions.configure<
-                org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-                >("kotlin") {
-            jvmToolchain(17)
-        }
-    }
-}

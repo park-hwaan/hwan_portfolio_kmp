@@ -237,7 +237,7 @@ fun ExecutionScreenSection(screenShots: List<DrawableResource>) {
     ) {
         Text(
             text = "실행화면",
-            fontSize = 26.sp,
+            fontSize = 24.sp,
             fontFamily = FontFamily,
             fontWeight = FontWeight.ExtraBold,
             color = Color.Black

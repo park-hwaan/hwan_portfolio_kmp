@@ -1,4 +1,0 @@
-{
-  "buildCommand": "unset JAVA_HOME && chmod +x gradlew && ./gradlew jsBrowserDistribution",
-  "outputDirectory": "composeApp/build/dist/js/productionExecutable"
-}
